@@ -1,0 +1,32 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: CSTNU-SERVICE
+          uri: http://localhost:9091
+          predicates:
+            - Path=/cstnu/**
+          metadata:
+            cors:
+              allowedOrigins: "http://localhost:8080"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+        - id: STNU-SERVICE
+          uri: http://localhost:9092
+          predicates:
+            - Path=/stnu/**
+          metadata:
+            cors:
+              allowedOrigins: "http://localhost:8080"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8080"
+            allowedMethods: "*"
+            allowedHeaders: "*"
